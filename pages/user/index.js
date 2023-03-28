@@ -6,11 +6,13 @@ import container from "@/styles/variants";
 import { useState, useEffect } from "react";
 import AccountUpdateForm from "@/components/Account/AccountUpdateForm";
 import { searchUser } from "@/store/slices/userSlice";
+import { useUser } from "@supabase/auth-helpers-react";
 
 const UserPage = () => {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(false);
-  const user = useSelector((state) => {
+  const user = useUser();
+  const publicUser = useSelector((state) => {
     return state.user.user;
   });
 
@@ -23,7 +25,7 @@ const UserPage = () => {
     if (user) {
       dispatch(searchUser(user.id));
     }
-  }, [toggle]);
+  }, [user]);
 
   return (
     <motion.div
@@ -35,7 +37,7 @@ const UserPage = () => {
     >
       {loadState === true && <div>Loading</div>}
       {loadState === false && toggle === false && (
-        <AccountDetails setToggle={setToggle} toggle={toggle} user={user} />
+        <AccountDetails setToggle={setToggle} toggle={toggle} user={publicUser} />
       )}
       {toggle && <AccountUpdateForm setToggle={setToggle} toggle={toggle} />}
     </motion.div>
