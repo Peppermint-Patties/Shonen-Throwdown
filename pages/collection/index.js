@@ -1,6 +1,6 @@
 import Modal from '@/components/collection/modal';
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styles from './Collection.module.css';
 import { motion } from 'framer-motion';
 import container from '../../styles/variants';

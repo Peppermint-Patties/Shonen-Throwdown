@@ -26,6 +26,22 @@ export const updateUser = createAsyncThunk("updateUser", async (hope) => {
   }
 });
 
+export const updateWallet = createAsyncThunk('updateWallet', async({updatedWallet, userId})=>{
+  try{
+    console.log(updatedWallet)
+    console.log(userId)
+    const {data} = await supabase
+    .from("users")
+    .update({wallet: updatedWallet})
+    .eq('id', userId)
+    .select()
+    .single();
+    return data
+  } catch(err){
+    console.log(err)
+  }
+})
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -48,6 +64,10 @@ const userSlice = createSlice({
       .addCase(updateUser.fulfilled, (state, action) => {
         console.log(" Update User fulfilled");
         state.loading = false;
+      })
+      .addCase(updateWallet.fulfilled, (state,action)=>{
+        state.user = action.payload
+        return state
       });
   },
 });

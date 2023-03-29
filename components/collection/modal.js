@@ -80,6 +80,7 @@ let Modal = (props) => {
 				<div className={styles.description}>
 					<h1>{props.card.name}</h1>
 					<p>{props.card.description}</p>
+					<p>{props.card.quantity}</p>
 				</div>
 			</motion.div>
 		</div>

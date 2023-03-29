@@ -30,6 +30,11 @@ const Navbar = () => {
 				Cards
 			</Link>
 			{user && (
+				<Link className={styles.link} href="/market">
+					Market
+				</Link>
+			)}
+			{user && (
 				<Link className={styles.link} href="/lobby">
 					Play!
 				</Link>

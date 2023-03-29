@@ -1,0 +1,12 @@
+.error {
+	display: flex;
+	align-items: center;
+	background-color: rgb(229, 10, 57);
+	height: 30px;
+	color: white;
+	display: flex;
+	justify-content: center;
+	top: 0;
+	width: 400px;
+	border-radius: 5px;
+}
