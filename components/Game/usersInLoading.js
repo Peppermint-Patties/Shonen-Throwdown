@@ -2,16 +2,17 @@ import { useUser } from "@supabase/auth-helpers-react";
 import {useSelector} from 'react-redux'
 import { useState, useEffect } from "react";
 import {supabase} from '@/lib/supabase'
-const Chat = () => {
+import Router, { useRouter } from "next/router";
+const UsersInLobby = () => {
     const userData = useSelector((state)=>{
         return state.user.user
     })
+    const channelID = Router.query.id + 1
 
     const username = userData.username
     const [users, setUsers] = useState();
-    const [sendMessage, setSendMessage] = useState(() => () => {});
-
-    const channel = supabase.channel('presenceCheck',{
+    
+    const channel = supabase.channel(channelID,{
         config:{
             presence:{
                 key:'username'
@@ -40,29 +41,18 @@ const Chat = () => {
         .on('presence',{event:'leave'},({key, leftPresences})=>{
             console.log(key, leftPresences,"has left")
         })
-        .on('broadcast', { event: 'supa' }, (payload) => setUsers(prevState => [...prevState, payload.payload.username]))
-        
-        setSendMessage(() => () => {
-            channel.send({
-                type: "broadcast",
-                event: "supa",
-                payload: { username: "username"},
-            });
-        });
-        
         return()=>{
             channel.unsubscribe()
         }
     }, [])
-
+   
     console.log('this is my username:',username)
     console.log('this is users in lobby', users)
     return(
         <div>
-            <h1>{users ? users: 'loading'}</h1>
-            <button onClick={sendMessage}>Test</button>
+            <h1>Users In Lobby: {users ? users.join(', '): 'loading'}</h1>
         </div>
     )
 };
 
-export default Chat;
+export default UsersInLobby;

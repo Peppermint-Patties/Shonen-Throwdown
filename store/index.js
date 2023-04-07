@@ -6,6 +6,7 @@ import gameReducer from "./slices/gameSlice";
 import loadReducer from "./slices/loadSlice";
 import marketReducer from './slices/marketSlice'
 import collectionReducer from './slices/collectionSlice'
+import gameLobbySliceReducer from './slices/gameLobbySlice'
 
 
 const store = configureStore({
@@ -17,6 +18,7 @@ const store = configureStore({
     load: loadReducer,
     market: marketReducer, 
     collection: collectionReducer,
+    gameLobby: gameLobbySliceReducer,
   },
 });
 
